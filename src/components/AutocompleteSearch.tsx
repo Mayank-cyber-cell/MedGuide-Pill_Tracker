@@ -80,36 +80,44 @@ const AutocompleteSearch = ({ onSelectMedicine, placeholder = "Search medicine n
   };
 
   return (
-    <div className="relative w-full max-w-md mx-auto">
-      <form onSubmit={handleSubmit}>
-        <Input
-          ref={inputRef}
-          type="text"
-          value={query}
-          onChange={handleInputChange}
-          onKeyDown={handleKeyDown}
-          onFocus={() => query.length > 1 && setShowSuggestions(suggestions.length > 0)}
-          placeholder={placeholder}
-          className="w-full border-medical-secondary focus:ring-medical-primary"
-        />
+    <div className="relative w-full max-w-2xl mx-auto">
+      <form onSubmit={handleSubmit} className="relative">
+        <div className="relative">
+          <div className="absolute left-4 top-1/2 transform -translate-y-1/2 text-medical-primary">
+            <span className="text-xl">🔍</span>
+          </div>
+          <Input
+            ref={inputRef}
+            type="text"
+            value={query}
+            onChange={handleInputChange}
+            onKeyDown={handleKeyDown}
+            onFocus={() => query.length > 1 && setShowSuggestions(suggestions.length > 0)}
+            placeholder={placeholder}
+            className="w-full h-14 pl-14 pr-4 border-2 border-medical-secondary/30 focus:border-medical-primary focus:ring-medical-primary/20 rounded-2xl text-lg bg-white/80 dark:bg-slate-800/80 backdrop-blur-sm shadow-lg"
+          />
+        </div>
       </form>
 
       {showSuggestions && (
-        <Card className="absolute top-full left-0 right-0 z-50 mt-1 border-medical-secondary shadow-lg animate-fade-in">
+        <Card className="absolute top-full left-0 right-0 z-50 mt-2 border-2 border-medical-secondary/30 shadow-2xl animate-fade-in bg-white/95 dark:bg-slate-800/95 backdrop-blur-sm rounded-2xl overflow-hidden">
           <CardContent className="p-0">
             {suggestions.map((medicine, index) => (
               <div
                 key={medicine}
                 onClick={() => handleSuggestionClick(medicine)}
-                className={`px-4 py-2 cursor-pointer transition-all duration-200 ${
+                className={`px-6 py-4 cursor-pointer transition-all duration-200 flex items-center gap-3 ${
                   index === activeSuggestion
-                    ? "bg-medical-accent text-medical-dark"
-                    : "hover:bg-medical-light text-medical-dark"
-                } ${index === 0 ? "rounded-t-lg" : ""} ${
-                  index === suggestions.length - 1 ? "rounded-b-lg" : "border-b border-medical-secondary"
+                    ? "bg-gradient-to-r from-medical-primary/20 to-blue-500/20 text-medical-dark dark:text-white"
+                    : "hover:bg-gradient-to-r hover:from-medical-light hover:to-blue-50/50 text-medical-dark dark:text-white"
+                } ${index === 0 ? "rounded-t-2xl" : ""} ${
+                  index === suggestions.length - 1 ? "rounded-b-2xl" : "border-b border-medical-secondary/20"
                 }`}
               >
-                <span className="text-sm font-medium">{medicine}</span>
+                <div className="p-2 bg-medical-primary/10 rounded-lg">
+                  <span className="text-sm">💊</span>
+                </div>
+                <span className="font-medium text-lg">{medicine}</span>
               </div>
             ))}
           </CardContent>

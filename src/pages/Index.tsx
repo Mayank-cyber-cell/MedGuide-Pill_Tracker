@@ -52,20 +52,23 @@ const Index = () => {
   };
 
   return (
-    <div className="min-h-screen bg-gradient-to-br from-medical-light to-background dark:from-slate-900 dark:to-slate-800 transition-colors duration-300">
+    <div className="min-h-screen bg-gradient-to-br from-slate-50 via-blue-50/30 to-purple-50/20 dark:from-slate-900 dark:via-slate-800 dark:to-slate-900 transition-colors duration-300">
       <DarkModeToggle />
       <MedGuideHeader />
       
-      <main className="container mx-auto px-4 py-8 space-y-12">
+      <main className="container mx-auto px-4 py-12 space-y-16">
         {/* Enhanced Search Section */}
-        <section className="text-center space-y-6">
-          <div className="space-y-3">
-            <h2 className="text-2xl font-bold text-medical-dark dark:text-white">
-              🔍 Search & Analyze Medicines
-            </h2>
-            <p className="text-medical-dark/70 dark:text-gray-300 max-w-2xl mx-auto">
+        <section className="text-center space-y-8">
+          <div className="space-y-4">
+            <div className="inline-flex items-center gap-3 px-6 py-3 bg-gradient-to-r from-medical-primary/10 to-blue-500/10 rounded-full border border-medical-primary/20">
+              <span className="text-2xl">🔍</span>
+              <h2 className="text-2xl md:text-3xl font-bold text-medical-dark dark:text-white">
+                Search & Analyze Medicines
+              </h2>
+            </div>
+            <p className="text-medical-dark/70 dark:text-gray-300 max-w-3xl mx-auto text-lg leading-relaxed">
               Use our enhanced search to find detailed information about any medicine, 
-              including side effects, safety analysis, and FDA reports.
+              including side effects, safety analysis, and FDA reports. Get the insights you need to make informed decisions.
             </p>
           </div>
           <AutocompleteSearch 
@@ -84,13 +87,39 @@ const Index = () => {
         <MedicineInfoFetcher />
 
         {/* Add Medicine Form */}
-        <AddMedicineForm onAddMedicine={handleAddMedicine} />
+        <section>
+          <div className="text-center mb-8">
+            <div className="inline-flex items-center gap-3 px-6 py-3 bg-gradient-to-r from-medical-primary/10 to-blue-500/10 rounded-full border border-medical-primary/20 mb-4">
+              <span className="text-2xl">⏰</span>
+              <h2 className="text-2xl md:text-3xl font-bold text-medical-dark dark:text-white">
+                Set Medicine Reminders
+              </h2>
+            </div>
+            <p className="text-medical-dark/70 dark:text-gray-300 max-w-2xl mx-auto text-lg">
+              Never miss a dose again. Set up personalized reminders for all your medications.
+            </p>
+          </div>
+          <AddMedicineForm onAddMedicine={handleAddMedicine} />
+        </section>
 
         {/* Reminder List */}
         <ReminderList medicines={medicines} onDeleteMedicine={handleDeleteMedicine} />
 
         {/* Info & Blog Cards */}
-        <InfoBlogCards />
+        <section>
+          <div className="text-center mb-8">
+            <div className="inline-flex items-center gap-3 px-6 py-3 bg-gradient-to-r from-green-500/10 to-emerald-500/10 rounded-full border border-green-500/20 mb-4">
+              <span className="text-2xl">📚</span>
+              <h2 className="text-2xl md:text-3xl font-bold text-medical-dark dark:text-white">
+                Health Education Hub
+              </h2>
+            </div>
+            <p className="text-medical-dark/70 dark:text-gray-300 max-w-2xl mx-auto text-lg">
+              Stay informed with our curated collection of articles about medication safety and healthcare best practices.
+            </p>
+          </div>
+          <InfoBlogCards />
+        </section>
       </main>
       
       <DisclaimerFooter />

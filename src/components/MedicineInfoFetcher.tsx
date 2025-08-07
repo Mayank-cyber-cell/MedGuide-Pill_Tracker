@@ -139,112 +139,161 @@ const MedicineInfoFetcher = () => {
   };
 
   return (
-    <div className="w-full max-w-4xl mx-auto">
-      <Card className="border-medical-secondary shadow-lg">
-        <CardHeader className="bg-medical-light">
-          <CardTitle className="text-medical-dark flex items-center gap-2">
-            <span>🔍</span>
-            Medicine Information Lookup
+    <div className="w-full max-w-6xl mx-auto">
+      <Card className="shadow-2xl border-0 bg-gradient-to-br from-white to-purple-50/30 dark:from-slate-800 dark:to-slate-900">
+        <CardHeader className="bg-gradient-to-r from-purple-500/10 to-indigo-500/10 rounded-t-lg border-b border-purple-500/20">
+          <CardTitle className="text-medical-dark dark:text-white flex items-center gap-3 text-2xl">
+            <div className="p-2 bg-purple-500/20 rounded-xl">
+              <span className="text-2xl">🔍</span>
+            </div>
+            FDA Medicine Information Lookup
           </CardTitle>
+          <p className="text-medical-dark/70 dark:text-gray-300 mt-2">
+            Get detailed FDA data including side effects, manufacturer info, and safety reports
+          </p>
         </CardHeader>
-        <CardContent className="p-6">
-          <form onSubmit={handleSubmit} className="space-y-4 mb-6">
-            <div className="space-y-2">
-              <Label htmlFor="medicine-search" className="text-medical-dark font-medium">
+        <CardContent className="p-8">
+          <form onSubmit={handleSubmit} className="space-y-6 mb-8">
+            <div className="space-y-3">
+              <Label htmlFor="medicine-search" className="text-medical-dark dark:text-white font-semibold text-lg flex items-center gap-2">
+                <span className="text-purple-500">🏥</span>
                 Search Medicine Name
               </Label>
-              <Input
-                id="medicine-search"
-                type="text"
-                placeholder="Enter medicine name (e.g., Paracetamol)"
-                value={searchTerm}
-                onChange={(e) => setSearchTerm(e.target.value)}
-                className="border-medical-secondary focus:ring-medical-primary"
-              />
+              <div className="relative">
+                <Input
+                  id="medicine-search"
+                  type="text"
+                  placeholder="Enter medicine name (e.g., Paracetamol, Ibuprofen)"
+                  value={searchTerm}
+                  onChange={(e) => setSearchTerm(e.target.value)}
+                  className="h-12 border-2 border-purple-200/50 focus:border-purple-500 focus:ring-purple-500/20 rounded-xl text-lg pl-4"
+                />
+              </div>
             </div>
             <Button 
               type="submit" 
               disabled={isLoading}
-              className="bg-medical-primary hover:bg-medical-secondary text-white font-medium py-2 px-6 rounded-lg transition-all duration-200 transform hover:scale-105"
+              className="h-12 bg-gradient-to-r from-purple-500 to-indigo-500 hover:from-purple-600 hover:to-indigo-600 text-white font-semibold px-8 rounded-xl transition-all duration-300 transform hover:scale-[1.02] disabled:opacity-50"
             >
-              {isLoading ? "Fetching data..." : "Search Medicine Info 🔍"}
+              {isLoading ? (
+                <>
+                  <div className="animate-spin rounded-full h-5 w-5 border-b-2 border-white mr-2"></div>
+                  Fetching data...
+                </>
+              ) : (
+                <>
+                  <span className="mr-2">🔍</span>
+                  Search FDA Database
+                </>
+              )}
             </Button>
           </form>
 
           {error && (
-            <Card className="border-red-200 bg-red-50">
-              <CardContent className="p-4">
-                <p className="text-red-700 text-center">{error}</p>
+            <Card className="border-2 border-red-200 bg-gradient-to-r from-red-50 to-pink-50 dark:from-red-900/20 dark:to-pink-900/20 mb-6">
+              <CardContent className="p-6">
+                <div className="flex items-center gap-3">
+                  <span className="text-2xl">⚠️</span>
+                  <p className="text-red-700 dark:text-red-300 font-medium">{error}</p>
+                </div>
               </CardContent>
             </Card>
           )}
 
           {medicineInfo && (
-            <Card className="border-medical-accent bg-medical-light/30 animate-fade-in">
-              <CardContent className="p-6">
-                <h3 className="text-xl font-bold text-medical-dark mb-4 flex items-center gap-2">
-                  💊 {medicineInfo.medicinalproduct}
-                  {medicineInfo.brandName && medicineInfo.brandName !== medicineInfo.medicinalproduct && (
-                    <span className="text-sm font-normal text-medical-dark/70">
-                      ({medicineInfo.brandName})
-                    </span>
-                  )}
-                </h3>
-                
-                <div className="grid gap-4 lg:grid-cols-3 md:grid-cols-2">
+            <Card className="border-2 border-purple-200/50 bg-gradient-to-br from-purple-50/50 to-indigo-50/50 dark:from-purple-900/20 dark:to-indigo-900/20 animate-fade-in">
+              <CardContent className="p-8">
+                <div className="flex items-center gap-4 mb-6">
+                  <div className="p-3 bg-gradient-to-br from-purple-500/20 to-indigo-500/20 rounded-2xl">
+                    <span className="text-3xl">💊</span>
+                  </div>
                   <div>
-                    <h4 className="font-semibold text-medical-dark mb-2 flex items-center gap-2">
-                      ⚠️ Reported Side Effects:
+                    <h3 className="text-2xl font-bold text-medical-dark dark:text-white">
+                      {medicineInfo.medicinalproduct}
+                    </h3>
+                    {medicineInfo.brandName && medicineInfo.brandName !== medicineInfo.medicinalproduct && (
+                      <p className="text-lg text-medical-dark/70 dark:text-gray-300">
+                        Brand: {medicineInfo.brandName}
+                      </p>
+                    )}
+                  </div>
+                </div>
+                
+                <div className="grid gap-6 lg:grid-cols-3 md:grid-cols-2">
+                  <div className="lg:col-span-2">
+                    <h4 className="font-bold text-xl text-medical-dark dark:text-white mb-4 flex items-center gap-2">
+                      <span className="text-red-500">⚠️</span>
+                      Reported Side Effects
                     </h4>
                     {medicineInfo.reactionmeddrapt.length > 0 ? (
-                      <ul className="space-y-1 max-h-32 overflow-y-auto">
-                        {medicineInfo.reactionmeddrapt.slice(0, 5).map((reaction, index) => (
-                          <li key={index} className="text-medical-dark/80 text-sm flex items-start gap-2 bg-red-50 p-2 rounded border-l-2 border-red-300">
-                            <span className="text-red-500 mt-0.5">•</span>
-                            <span>{reaction}</span>
-                          </li>
+                      <div className="space-y-2 max-h-64 overflow-y-auto">
+                        {medicineInfo.reactionmeddrapt.slice(0, 8).map((reaction, index) => (
+                          <div key={index} className="flex items-start gap-3 p-3 bg-gradient-to-r from-red-50 to-orange-50 dark:from-red-900/20 dark:to-orange-900/20 rounded-lg border border-red-200/50">
+                            <span className="text-red-500 mt-0.5 text-sm">•</span>
+                            <span className="text-medical-dark dark:text-white font-medium">{reaction}</span>
+                          </div>
                         ))}
-                        {medicineInfo.reactionmeddrapt.length > 5 && (
-                          <li className="text-medical-dark/60 text-xs italic">
-                            +{medicineInfo.reactionmeddrapt.length - 5} more reactions...
-                          </li>
+                        {medicineInfo.reactionmeddrapt.length > 8 && (
+                          <p className="text-medical-dark/60 dark:text-gray-400 text-sm italic text-center pt-2">
+                            +{medicineInfo.reactionmeddrapt.length - 8} more reactions reported...
+                          </p>
                         )}
-                      </ul>
+                      </div>
                     ) : (
-                      <p className="text-medical-dark/60 text-sm bg-green-50 p-2 rounded">No side effects reported</p>
+                      <div className="p-4 bg-gradient-to-r from-green-50 to-emerald-50 dark:from-green-900/20 dark:to-emerald-900/20 rounded-lg border border-green-200/50">
+                        <p className="text-green-700 dark:text-green-300 font-medium">No side effects reported in this dataset</p>
+                      </div>
                     )}
                   </div>
                   
-                  <div className="space-y-3">
-                    <div className="bg-white p-3 rounded-lg border border-medical-secondary/30">
-                      <span className="font-semibold text-medical-dark block">Serious Event:</span>
-                      <span className={`font-medium ${medicineInfo.serious ? 'text-red-600' : 'text-green-600'}`}>
-                        {medicineInfo.serious ? '🔴 Yes' : '🟢 No'}
+                  <div className="space-y-4">
+                    <div className="p-4 bg-gradient-to-br from-white to-gray-50 dark:from-slate-700 dark:to-slate-600 rounded-xl border border-gray-200/50 shadow-sm">
+                      <div className="flex items-center gap-2 mb-2">
+                        <span className={`text-xl ${medicineInfo.serious ? '🔴' : '🟢'}`}>
+                          {medicineInfo.serious ? '🔴' : '🟢'}
+                        </span>
+                        <span className="font-bold text-medical-dark dark:text-white">Serious Event</span>
+                      </div>
+                      <span className={`font-semibold ${medicineInfo.serious ? 'text-red-600 dark:text-red-400' : 'text-green-600 dark:text-green-400'}`}>
+                        {medicineInfo.serious ? 'Yes' : 'No'}
                       </span>
                     </div>
-                    <div className="bg-white p-3 rounded-lg border border-medical-secondary/30">
-                      <span className="font-semibold text-medical-dark block">Report Date:</span>
-                      <span className="text-medical-dark/80">{formatDate(medicineInfo.receivedate)}</span>
+
+                    <div className="p-4 bg-gradient-to-br from-white to-gray-50 dark:from-slate-700 dark:to-slate-600 rounded-xl border border-gray-200/50 shadow-sm">
+                      <div className="flex items-center gap-2 mb-2">
+                        <span className="text-xl">📅</span>
+                        <span className="font-bold text-medical-dark dark:text-white">Report Date</span>
+                      </div>
+                      <span className="text-medical-dark/80 dark:text-gray-300 font-medium">{formatDate(medicineInfo.receivedate)}</span>
                     </div>
-                  </div>
-                  
-                  <div className="space-y-3">
+                    
                     {medicineInfo.manufacturer && (
-                      <div className="bg-white p-3 rounded-lg border border-medical-secondary/30">
-                        <span className="font-semibold text-medical-dark block">Manufacturer:</span>
-                        <span className="text-medical-dark/80">{medicineInfo.manufacturer}</span>
+                      <div className="p-4 bg-gradient-to-br from-white to-gray-50 dark:from-slate-700 dark:to-slate-600 rounded-xl border border-gray-200/50 shadow-sm">
+                        <div className="flex items-center gap-2 mb-2">
+                          <span className="text-xl">🏭</span>
+                          <span className="font-bold text-medical-dark dark:text-white">Manufacturer</span>
+                        </div>
+                        <span className="text-medical-dark/80 dark:text-gray-300 font-medium">{medicineInfo.manufacturer}</span>
                       </div>
                     )}
+
                     {medicineInfo.genericName && (
-                      <div className="bg-white p-3 rounded-lg border border-medical-secondary/30">
-                        <span className="font-semibold text-medical-dark block">Generic Name:</span>
-                        <span className="text-medical-dark/80">{medicineInfo.genericName}</span>
+                      <div className="p-4 bg-gradient-to-br from-white to-gray-50 dark:from-slate-700 dark:to-slate-600 rounded-xl border border-gray-200/50 shadow-sm">
+                        <div className="flex items-center gap-2 mb-2">
+                          <span className="text-xl">🧬</span>
+                          <span className="font-bold text-medical-dark dark:text-white">Generic Name</span>
+                        </div>
+                        <span className="text-medical-dark/80 dark:text-gray-300 font-medium">{medicineInfo.genericName}</span>
                       </div>
                     )}
+
                     {medicineInfo.sourceCountry && (
-                      <div className="bg-white p-3 rounded-lg border border-medical-secondary/30">
-                        <span className="font-semibold text-medical-dark block">Source Country:</span>
-                        <span className="text-medical-dark/80">{medicineInfo.sourceCountry}</span>
+                      <div className="p-4 bg-gradient-to-br from-white to-gray-50 dark:from-slate-700 dark:to-slate-600 rounded-xl border border-gray-200/50 shadow-sm">
+                        <div className="flex items-center gap-2 mb-2">
+                          <span className="text-xl">🌍</span>
+                          <span className="font-bold text-medical-dark dark:text-white">Source Country</span>
+                        </div>
+                        <span className="text-medical-dark/80 dark:text-gray-300 font-medium">{medicineInfo.sourceCountry}</span>
                       </div>
                     )}
                   </div>
@@ -253,8 +302,13 @@ const MedicineInfoFetcher = () => {
             </Card>
           )}
 
-          <div className="mt-6 text-xs text-medical-dark/60 text-center border-t border-medical-secondary pt-4">
-            📋 Data provided by the U.S. FDA (OpenFDA), for informational purposes only.
+          <div className="mt-8 p-4 bg-gradient-to-r from-blue-50 to-indigo-50 dark:from-blue-900/20 dark:to-indigo-900/20 rounded-xl border border-blue-200/50">
+            <div className="flex items-center gap-2 text-blue-700 dark:text-blue-300">
+              <span className="text-lg">📋</span>
+              <p className="text-sm font-medium">
+                Data provided by the U.S. FDA (OpenFDA) for informational purposes only. Always consult healthcare professionals for medical advice.
+              </p>
+            </div>
           </div>
         </CardContent>
       </Card>

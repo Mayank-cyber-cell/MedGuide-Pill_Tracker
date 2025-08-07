@@ -8,6 +8,7 @@ interface BlogPost {
   icon: string;
   readTime: string;
   category: string;
+  gradient: string;
 }
 
 const BLOG_POSTS: BlogPost[] = [
@@ -17,7 +18,8 @@ const BLOG_POSTS: BlogPost[] = [
     excerpt: "Learn about the most frequently prescribed antibiotics, when they're used, and important safety considerations to keep in mind.",
     icon: "💊",
     readTime: "5 min read",
-    category: "Antibiotics"
+    category: "Antibiotics",
+    gradient: "from-blue-500/10 to-cyan-500/10"
   },
   {
     id: "2", 
@@ -25,7 +27,8 @@ const BLOG_POSTS: BlogPost[] = [
     excerpt: "Understanding the risks of self-medication and why professional medical guidance is essential for your health and safety.",
     icon: "⚠️",
     readTime: "4 min read",
-    category: "Safety"
+    category: "Safety",
+    gradient: "from-red-500/10 to-orange-500/10"
   },
   {
     id: "3",
@@ -33,7 +36,8 @@ const BLOG_POSTS: BlogPost[] = [
     excerpt: "How different medications can interact with each other and what you need to know to stay safe when taking multiple drugs.",
     icon: "🔄",
     readTime: "6 min read",
-    category: "Drug Safety"
+    category: "Drug Safety",
+    gradient: "from-purple-500/10 to-pink-500/10"
   },
   {
     id: "4",
@@ -41,7 +45,8 @@ const BLOG_POSTS: BlogPost[] = [
     excerpt: "Essential information on how to properly read and understand medication labels, dosing instructions, and warning signs.",
     icon: "📋",
     readTime: "7 min read",
-    category: "Education"
+    category: "Education",
+    gradient: "from-green-500/10 to-emerald-500/10"
   }
 ];
 
@@ -52,69 +57,67 @@ const InfoBlogCards = () => {
   };
 
   return (
-    <div className="w-full max-w-6xl mx-auto">
-      <div className="text-center mb-8">
-        <h2 className="text-3xl font-bold text-medical-dark mb-4 flex items-center justify-center gap-2">
-          📚 Health Education Hub
-        </h2>
-        <p className="text-medical-dark/70 max-w-2xl mx-auto">
-          Stay informed with our curated collection of articles about medication safety, 
-          drug interactions, and healthcare best practices.
-        </p>
-      </div>
-
-      <div className="grid gap-6 md:grid-cols-2 lg:grid-cols-2">
+    <div className="w-full max-w-7xl mx-auto">
+      <div className="grid gap-8 md:grid-cols-2 lg:grid-cols-2">
         {BLOG_POSTS.map((post, index) => (
           <Card 
             key={post.id} 
-            className={`border-medical-secondary shadow-lg hover:shadow-xl transition-all duration-300 transform hover:scale-105 animate-fade-in`}
+            className={`group border-0 shadow-xl hover:shadow-2xl transition-all duration-500 transform hover:scale-[1.02] animate-fade-in bg-gradient-to-br ${post.gradient} backdrop-blur-sm`}
             style={{ animationDelay: `${index * 0.1}s` }}
           >
-            <CardHeader className="bg-gradient-to-r from-medical-light to-medical-accent">
+            <CardHeader className={`bg-gradient-to-r ${post.gradient} border-b border-white/20`}>
               <div className="flex items-start justify-between">
-                <div className="flex items-center gap-3">
-                  <span className="text-2xl">{post.icon}</span>
-                  <div>
-                    <div className="flex items-center gap-2 mb-2">
-                      <span className="px-2 py-1 bg-medical-primary/20 text-medical-primary text-xs font-medium rounded-full">
+                <div className="flex items-center gap-4">
+                  <div className="p-3 bg-white/20 rounded-2xl backdrop-blur-sm">
+                    <span className="text-3xl">{post.icon}</span>
+                  </div>
+                  <div className="flex-1">
+                    <div className="flex items-center gap-3 mb-3">
+                      <span className="px-3 py-1 bg-white/20 backdrop-blur-sm text-medical-dark dark:text-white text-sm font-semibold rounded-full border border-white/30">
                         {post.category}
                       </span>
-                      <span className="text-xs text-medical-dark/60">{post.readTime}</span>
+                      <span className="text-sm text-medical-dark/70 dark:text-gray-300 font-medium">{post.readTime}</span>
                     </div>
-                    <CardTitle className="text-medical-dark text-lg leading-tight">
+                    <CardTitle className="text-medical-dark dark:text-white text-xl leading-tight group-hover:text-medical-primary transition-colors duration-300">
                       {post.title}
                     </CardTitle>
                   </div>
                 </div>
               </div>
             </CardHeader>
-            <CardContent className="p-6">
-              <p className="text-medical-dark/80 text-sm leading-relaxed mb-4">
+            <CardContent className="p-8">
+              <p className="text-medical-dark/80 dark:text-gray-300 leading-relaxed mb-6 text-base">
                 {post.excerpt}
               </p>
               <Button 
                 onClick={() => handleReadMore(post.id)}
-                variant="outline"
-                className="w-full border-medical-primary text-medical-primary hover:bg-medical-primary hover:text-white transition-all duration-200"
+                className="w-full h-12 bg-gradient-to-r from-medical-primary to-blue-500 hover:from-medical-primary/90 hover:to-blue-500/90 text-white font-semibold rounded-xl transition-all duration-300 transform hover:scale-[1.02] shadow-lg hover:shadow-xl"
               >
-                Read Full Article →
+                Read Full Article
+                <span className="ml-2">→</span>
               </Button>
             </CardContent>
           </Card>
         ))}
       </div>
 
-      <div className="mt-8 text-center">
-        <Card className="border-medical-accent bg-gradient-to-r from-medical-light to-medical-accent/30">
-          <CardContent className="p-6">
-            <h3 className="text-xl font-semibold text-medical-dark mb-2 flex items-center justify-center gap-2">
-              💡 Want More Health Tips?
-            </h3>
-            <p className="text-medical-dark/70 mb-4">
-              Subscribe to our newsletter for weekly updates on medication safety and health education.
+      <div className="mt-12 text-center">
+        <Card className="border-0 bg-gradient-to-r from-indigo-500/10 via-purple-500/10 to-pink-500/10 backdrop-blur-sm shadow-xl">
+          <CardContent className="p-8">
+            <div className="flex items-center justify-center gap-3 mb-4">
+              <div className="p-3 bg-gradient-to-r from-indigo-500/20 to-purple-500/20 rounded-2xl">
+                <span className="text-3xl">💡</span>
+              </div>
+              <h3 className="text-2xl font-bold text-medical-dark dark:text-white">
+                Want More Health Tips?
+              </h3>
+            </div>
+            <p className="text-medical-dark/70 dark:text-gray-300 mb-6 text-lg max-w-2xl mx-auto">
+              Subscribe to our newsletter for weekly updates on medication safety, health education, and the latest medical insights.
             </p>
-            <Button className="bg-medical-primary hover:bg-medical-secondary text-white font-medium">
-              Subscribe Now 📧
+            <Button className="h-12 bg-gradient-to-r from-indigo-500 to-purple-500 hover:from-indigo-600 hover:to-purple-600 text-white font-semibold px-8 rounded-xl transition-all duration-300 transform hover:scale-[1.02] shadow-lg">
+              <span className="mr-2">📧</span>
+              Subscribe to Newsletter
             </Button>
           </CardContent>
         </Card>
