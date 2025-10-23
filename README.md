@@ -1,6 +1,6 @@
 # 💊 MedGuide – Pill Tracker
 
-A smart and user-friendly medicine reminder app to help users track their daily medications and dosage timings. Built using HTML, CSS, and JavaScript, MedGuide also integrates with the Open FDA API to provide real-time drug event updates for safety awareness
+A smart and user-friendly medicine reminder app to help users track their daily medications and dosage timings. Built using HTML, CSS, and JavaScript, MedGuide also integrates with the Open FDA API to provide real-time drug event updates for safety awareness.
 
 ---
 
