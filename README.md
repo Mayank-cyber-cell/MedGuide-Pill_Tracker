@@ -45,6 +45,7 @@ A smart and user-friendly medicine reminder app to help users track their daily 
 ## 📚 API Used
 FDA Drug Event API
 
+
 ## 🙋‍♂️ Author
 ## 👨‍💻 Mayank Kumar Shah
 2nd Year CSE @ SDIET | Frontend Enthusiast | Passionate about impactful tech.
